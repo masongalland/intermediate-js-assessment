@@ -13,12 +13,12 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-function callBinding(magicAnimals, updateAnimal, id){
-    for(var i = 0; i < magicAnimals.length; i++){
-        if(magicAnimals[i]['id'] === id){
-            return updateAnimal.call(magicAnimals[i], 'Trogdor');
-        }
-    }
+function callBinding(magicAnimals, updateAnimal, id) {
+	for (var i = 0; i < magicAnimals.length; i++) {
+		if (magicAnimals[i]['id'] === id) {
+			return updateAnimal.call(magicAnimals[i], 'Trogdor');
+		}
+	}
 }
 
 // *************
@@ -33,12 +33,12 @@ function callBinding(magicAnimals, updateAnimal, id){
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-function applyBinding(magicAnimals, updateAnimal, id){
-    for(var i = 0; i < magicAnimals.length; i++){
-        if(magicAnimals[i]['id'] === id){
-            return updateAnimal.apply(magicAnimals[i], ['being majestic', 'eating rainbows']);
-        }
-    }
+function applyBinding(magicAnimals, updateAnimal, id) {
+	for (var i = 0; i < magicAnimals.length; i++) {
+		if (magicAnimals[i]['id'] === id) {
+			return updateAnimal.apply(magicAnimals[i], ['being majestic', 'eating rainbows']);
+		}
+	}
 }
 
 // *************
@@ -57,7 +57,17 @@ function applyBinding(magicAnimals, updateAnimal, id){
 
 var foo;
 // CODE HERE...
+function promiseMe($q) {
+	var defered = $q.defer();
 
+
+
+	setTimeout(function () {
+		defered.resolve(foo = "bar");
+	}, 20);
+
+	return defered.promise;
+}
 
 // *************
 // * PROBLEM 4 *
@@ -72,3 +82,22 @@ var foo;
 // and then pass the array as you complete your promise.
 
 // CODE HERE...
+function emailList($q, $http){
+    var defered = $q.defer();
+
+    $http({
+        method: "GET",
+        url: '/api/users'
+    }
+    ).then(res => {
+        var emails = [];
+        for (var i = 0; i < res.data.length; i++) {
+            console.log(emails);
+            emails.push(res.data[i].email);
+
+        }
+        defered.resolve(emails);
+    });
+
+return defered.promise
+}
