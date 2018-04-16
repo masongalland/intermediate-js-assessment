@@ -56,11 +56,20 @@ function applyBinding(magicAnimals, updateAnimal, id) {
 // NOTE: Manually invoking your function here will alter the 'foo' variable before tests run, causing them to fail.
 
 var foo;
-// CODE HERE...
+// using the build-in Promise constructor
+function promiseMe() {
+	let custom	= new Promise((resolve, reject) => {
+		setTimeout(()=> {
+			foo = 'bar';
+			resolve(foo)
+		}, 20)
+	})
+	return custom
+}
+/*  using the $q library:
+
 function promiseMe($q) {
 	var defered = $q.defer();
-
-
 
 	setTimeout(function () {
 		defered.resolve(foo = "bar");
@@ -68,6 +77,7 @@ function promiseMe($q) {
 
 	return defered.promise;
 }
+*/
 
 // *************
 // * PROBLEM 4 *
@@ -81,7 +91,19 @@ function promiseMe($q) {
 // Make an array of emails (array of strings) from the returned data (You will need to console log or debug to figure this out),
 // and then pass the array as you complete your promise.
 
-// CODE HERE...
+// without using $q
+
+function emailList($q, $http) {
+	let custom = new Promise ((resolve, reject) => {
+		let list = $http.get('/api/users').then(res => {
+			return resolve(res.data.map(e => e.email))
+		})
+	})
+
+	return custom;
+}
+
+/*
 function emailList($q, $http){
     var defered = $q.defer();
 
@@ -101,3 +123,5 @@ function emailList($q, $http){
 
 return defered.promise
 }
+
+*/
